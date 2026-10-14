@@ -1,0 +1,47 @@
+(base) web3@web3-VirtualBox:~/rebase$ cd
+(base) web3@web3-VirtualBox:~$ mkdir test
+(base) web3@web3-VirtualBox:~$ cd test
+(base) web3@web3-VirtualBox:~/test$ echo "first commit" > README.md
+(base) web3@web3-VirtualBox:~/test$ git init
+Initialized empty Git repository in /home/web3/test/.git/
+(base) web3@web3-VirtualBox:~/test$ git add .
+(base) web3@web3-VirtualBox:~/test$ git commit -m "first"
+[master (root-commit) db85c22] first
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.md
+(base) web3@web3-VirtualBox:~/test$ git checkout -b feature
+Switched to a new branch 'feature'
+(base) web3@web3-VirtualBox:~/test$ echo "branch commit" > README.md
+(base) web3@web3-VirtualBox:~/test$ git add .
+(base) web3@web3-VirtualBox:~/test$ git commit -m "second"
+[feature 87685e5] second
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+(base) web3@web3-VirtualBox:~/test$ git checkout master
+Switched to branch 'master'
+(base) web3@web3-VirtualBox:~/test$ echo "master commit" > Master.txt
+(base) web3@web3-VirtualBox:~/test$ git add .
+(base) web3@web3-VirtualBox:~/test$ git commit -m "third"
+[master 5f4a2c4] third
+ 1 file changed, 1 insertion(+)
+ create mode 100644 Master.txt
+(base) web3@web3-VirtualBox:~/test$ git branch
+  feature
+* master
+(base) web3@web3-VirtualBox:~/test$ git checkout feature
+Switched to branch 'feature'
+(base) web3@web3-VirtualBox:~/test$ git rebase master
+First, rewinding head to replay your work on top of it...
+Applying: second
+(base) web3@web3-VirtualBox:~/test$ git log --oneline --graph --all
+* ac9b207 (HEAD -> feature) second
+* 5f4a2c4 (master) third
+* db85c22 first
+(base) web3@web3-VirtualBox:~/test$ git diff feature origin/main
+fatal: ambiguous argument 'origin/main': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+(base) web3@web3-VirtualBox:~/test$ git diff --help
+(base) web3@web3-VirtualBox:~/test$ git log --oneline --graph --all
+* ac9b207 (HEAD -> feature) second
+* 5f4a2c4 (master) third
+* db85c22 first
